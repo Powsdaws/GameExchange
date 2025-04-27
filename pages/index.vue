@@ -69,14 +69,14 @@ const convert = () => {
     <header>
         <div class="flex flex-col items-center mt-8">
                 <h1 class="text-4xl font-bold">GameExhange.com</h1>
-                <p class="text-sm text-gray-600 italic">. . . Finally time to make your buddy download that game</p>
+                <p class="text-sm text-gray-600 italic">. . . Finally time to make your buddy download that game!</p>
         </div>
         
     </header>
 
     <!-- Main content -->
     <main>
-        <div class="flex justify-center items-center w-full mt-[30vh]">
+        <div class="flex justify-center items-center w-full mt-[25vh]">
             <div class="flex gap-[12rem] ">
                 <!-- Game selection -->
                 <div>
@@ -100,11 +100,11 @@ const convert = () => {
                 
             </div>
         </div>
-        <div class="flex justify-center items-center mt-[10vh]">
+        <div class="flex justify-center items-center mt-[12vh]">
             <UButton color="neutral" variant="outline" size="xl" class="w-[200px] flex justify-center items-center" @click="convert">Convert</UButton>
         </div>
         <div class="flex justify-center items-center mt-[10vh]">
-            <p v-if="converted" class="text-sm text-gray-800 italic">{{ gameValue }} is worth {{ games.mapping[gameValue] / currencies.mapping[currencyValue] }} {{ currencyValue }}</p>
+            <p v-if="converted" class="text-sm text-gray-800 italic">{{ gameValue }} is worth {{ games.mapping[gameValue] / currencies.mapping[currencyValue] }} {{ currencyValue }}(s)</p>
         </div>
     </main>
 </template>
