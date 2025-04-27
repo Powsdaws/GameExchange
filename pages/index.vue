@@ -9,15 +9,44 @@ useHead({
   ]
 })
 
-const games = ref([
-  ['Valorant', 'Fortnite', 'League of Legends', 'Minecraft', 'Overwatch'],
-  ['Call of Duty', 'Counter-Strike', 'PUBG', 'Apex Legends', 'Dota 2']
-])
+const games = ref({
+  items: [
+    ['Valorant', 'Fortnite', 'League of Legends', 'Minecraft', 'Overwatch'],
+    ['Call of Duty', 'Counter-Strike', 'PUBG', 'Apex Legends', 'Dota 2']
+  ],
+  mapping: {
+    'Valorant': '0',
+    'Fortnite': '0',
+    'League of Legends': '0',
+    'Minecraft': '29.99', 
+    'Overwatch': '0',
+    'Call of Duty': '60',
+    'Counter-Strike': '0',
+    'PUBG': '20',
+    'Apex Legends': '0',
+    'Dota 2': '0'
+  }
+})
 
-const currencies = ref([
-    ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple'],
-    ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
-])
+const currencies = ref({
+    items: [
+        ['Apple', 'Banana', 'Beer', 'Blueberry', 'Grapes', 'Pineapple'],
+        ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
+    ],
+    mapping: {
+        'Apple': '0.8',
+        'Banana': '0.9', 
+        'Blueberrys': '2',
+        'Grapes': '1.5',
+        'Pineapple': '3',
+        'Aubergine': '1.5',
+        'Beer': '2',
+        'Broccoli': '3',
+        'Carrots': '2', 
+        'Courgette': '1.8',
+        'Leek': '2'
+    }
+})
 
 const gameValue = ref(null)
 const currencyValue = ref(null)
@@ -52,7 +81,7 @@ const convert = () => {
                 <!-- Game selection -->
                 <div>
                     <p class="text-sm text-gray-600 italic">Choose your game</p>
-                    <UInputMenu v-model="gameValue" :items="games" />
+                    <UInputMenu v-model="gameValue" :items="games.items" @update:model-value="converted = false" />
                 </div>
                 <!-- Arrow icon -->
                 <div class="flex items-center justify-center mt-4">            
@@ -66,7 +95,7 @@ const convert = () => {
                 <!-- Currency selection -->
                 <div>
                     <p class="text-sm text-gray-600 italic">Choose your "currency"</p>
-                    <UInputMenu v-model="currencyValue" :items="currencies" />
+                    <UInputMenu v-model="currencyValue" :items="currencies.items" @update:model-value="converted = false" />
                 </div>
                 
             </div>
@@ -75,7 +104,7 @@ const convert = () => {
             <UButton color="neutral" variant="outline" size="xl" class="w-[200px] flex justify-center items-center" @click="convert">Convert</UButton>
         </div>
         <div class="flex justify-center items-center mt-[10vh]">
-            <p v-if="converted" class="text-sm text-gray-800 italic">{{ gameValue }} is worth (n) {{ currencyValue }}</p>
+            <p v-if="converted" class="text-sm text-gray-800 italic">{{ gameValue }} is worth {{ games.mapping[gameValue] / currencies.mapping[currencyValue] }} {{ currencyValue }}</p>
         </div>
     </main>
 </template>
