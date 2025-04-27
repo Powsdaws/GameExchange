@@ -9,12 +9,26 @@ useHead({
   ]
 })
 
-const items = ref([
-  ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple'],
-  ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
+const games = ref([
+  ['Valorant', 'Fortnite', 'League of Legends', 'Minecraft', 'Overwatch'],
+  ['Call of Duty', 'Counter-Strike', 'PUBG', 'Apex Legends', 'Dota 2']
 ])
-const value = ref('Apple')
 
+const currencies = ref([
+    ['Apple', 'Banana', 'Blueberry', 'Grapes', 'Pineapple'],
+    ['Aubergine', 'Broccoli', 'Carrot', 'Courgette', 'Leek']
+])
+
+const gameValue = ref(null)
+const currencyValue = ref(null)
+
+const converted = ref(false)
+
+const convert = () => {
+    if (gameValue.value && currencyValue.value !== null) {
+    converted.value = true
+    }
+}
 
 
 </script>
@@ -31,20 +45,37 @@ const value = ref('Apple')
         
     </header>
 
-
+    <!-- Main content -->
     <main>
-        <div class="flex justify-center items-center w-full h-[80vh]">
-            <div class="flex space-x-70 ">
+        <div class="flex justify-center items-center w-full mt-[30vh]">
+            <div class="flex gap-[12rem] ">
+                <!-- Game selection -->
                 <div>
                     <p class="text-sm text-gray-600 italic">Choose your game</p>
-                    <UInputMenu v-model="value" :items="items" />
+                    <UInputMenu v-model="gameValue" :items="games" />
                 </div>
+                <!-- Arrow icon -->
+                <div class="flex items-center justify-center mt-4">            
+                    <div v-if="!converted">
+                        <UIcon name="formkit:arrowright" class="size-10" />
+                    </div>        
+                    <div v-else>
+                        <UIcon name="line-md:chevron-double-right" class="size-10" />
+                    </div>
+                </div>
+                <!-- Currency selection -->
                 <div>
-                    <p class="text-sm text-gray-600 italic">Choose your currency</p>
-                    <UInputMenu v-model="value" :items="items" />
+                    <p class="text-sm text-gray-600 italic">Choose your "currency"</p>
+                    <UInputMenu v-model="currencyValue" :items="currencies" />
                 </div>
                 
             </div>
+        </div>
+        <div class="flex justify-center items-center mt-[10vh]">
+            <UButton color="neutral" variant="outline" size="xl" class="w-[200px] flex justify-center items-center" @click="convert">Convert</UButton>
+        </div>
+        <div class="flex justify-center items-center mt-[10vh]">
+            <p v-if="converted" class="text-sm text-gray-800 italic">{{ gameValue }} is worth (n) {{ currencyValue }}</p>
         </div>
     </main>
 </template>
